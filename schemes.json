@@ -1,0 +1,72 @@
+[
+  {
+    "name": "PM-KISAN",
+    "category": "Agriculture",
+    "description": "Income support of Rs. 6,000 per year to eligible farmer families, paid in three installments.",
+    "link": "https://pmkisan.gov.in/",
+    "criteria": { "is_farmer": "Yes" }
+  },
+  {
+    "name": "PM SVANidhi",
+    "category": "Livelihood",
+    "description": "Collateral-free working capital loans for street vendors to restart or grow their business.",
+    "link": "https://pmsvanidhi.mohua.gov.in/",
+    "criteria": { "is_street_vendor": "Yes" }
+  },
+  {
+    "name": "PM Vishwakarma",
+    "category": "Artisans & Craftspeople",
+    "description": "Financial support, skill training, and toolkits for traditional artisans and craftspeople.",
+    "link": "https://pmvishwakarma.gov.in/",
+    "criteria": { "is_artisan": "Yes" }
+  },
+  {
+    "name": "PM Mudra Yojana",
+    "category": "Employment & Enterprise",
+    "description": "Collateral-free loans up to Rs. 10 lakh for non-farm micro and small enterprises.",
+    "link": "https://www.mudra.org.in/",
+    "criteria": {}
+  },
+  {
+    "name": "PM Ujjwala Yojana",
+    "category": "Household Welfare",
+    "description": "Free LPG gas connections for women from below-poverty-line households.",
+    "link": "https://www.pmuy.gov.in/",
+    "criteria": { "is_bpl": "Yes" }
+  },
+  {
+    "name": "Sukanya Samriddhi Yojana",
+    "category": "Girl Child Welfare",
+    "description": "Small savings scheme for the education and marriage expenses of a girl child.",
+    "link": "https://www.india.gov.in/spotlight/sukanya-samriddhi-yojana",
+    "criteria": { "has_girl_child": "Yes" }
+  },
+  {
+    "name": "National Social Assistance Programme (NSAP)",
+    "category": "Social Assistance",
+    "description": "Pension and financial assistance for elderly, widowed, and disabled persons from poor households.",
+    "link": "https://nsap.nic.in/",
+    "criteria": { "has_disability": "Yes" }
+  },
+  {
+    "name": "Atal Pension Yojana",
+    "category": "Pension",
+    "description": "Guaranteed monthly pension scheme for workers in the unorganised sector after retirement.",
+    "link": "https://www.npscra.nsdl.co.in/scheme-details.php",
+    "criteria": {}
+  },
+  {
+    "name": "Jal Jeevan Mission",
+    "category": "Rural Infrastructure",
+    "description": "Provision of safe and adequate piped drinking water to every rural household.",
+    "link": "https://jaljeevanmission.gov.in/",
+    "criteria": { "is_rural": "Yes" }
+  },
+  {
+    "name": "Samagra Shiksha",
+    "category": "Education",
+    "description": "Integrated scheme supporting school education from pre-school to senior secondary level.",
+    "link": "https://samagra.education.gov.in/",
+    "criteria": { "is_student": "Yes" }
+  }
+]

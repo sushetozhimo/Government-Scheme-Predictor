@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Something Went Wrong{% endblock %}
+
+{% block content %}
+<section class="gsp-page-section">
+  <div class="container">
+    <div class="gsp-page-card gsp-error-card">
+      <p class="gsp-eyebrow">Error</p>
+      <h1 class="gsp-page-title">We couldn't process that</h1>
+      <p class="gsp-page-text">
+        {{ message or "Something went wrong while handling your request." }}
+      </p>
+      <a href="{{ url_for('index') }}" class="btn gsp-btn-primary">Back to the Form</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

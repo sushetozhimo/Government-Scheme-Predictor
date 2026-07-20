@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<section class="gsp-page-section">
+  <div class="container">
+    <div class="gsp-page-card gsp-error-card">
+      <p class="gsp-eyebrow">404</p>
+      <h1 class="gsp-page-title">This page doesn't exist</h1>
+      <p class="gsp-page-text">
+        The page you're looking for may have been moved or removed.
+      </p>
+      <a href="{{ url_for('index') }}" class="btn gsp-btn-primary">Back to Home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

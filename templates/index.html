@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Government Scheme Predictor{% endblock %}
+
+{% block content %}
+
+<section class="gsp-hero">
+  <div class="container gsp-hero-inner">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-7">
+        <p class="gsp-eyebrow">AI-Powered Citizen Scheme Predictor</p>
+        <h1 class="gsp-hero-title">Government Scheme<br>Recommendation System</h1>
+        <p class="gsp-hero-lead">
+          This AI-powered application recommends the most suitable government
+          scheme based on your personal and socio-economic details. Fill in
+          the form below to get a personalised recommendation in seconds.
+        </p>
+        <a href="#citizen-form" class="btn gsp-btn-primary btn-lg">Check My Eligibility</a>
+      </div>
+      <div class="col-lg-5">
+        <div class="gsp-hero-art" aria-hidden="true">
+          <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="130" r="110" fill="var(--gsp-navy-soft)"/>
+            <rect x="70" y="120" width="180" height="100" rx="6" fill="var(--gsp-white)" stroke="var(--gsp-navy)" stroke-width="3"/>
+            <rect x="90" y="140" width="60" height="8" rx="4" fill="var(--gsp-navy)"/>
+            <rect x="90" y="158" width="140" height="6" rx="3" fill="var(--gsp-gold)"/>
+            <rect x="90" y="172" width="110" height="6" rx="3" fill="var(--gsp-navy-soft)"/>
+            <rect x="90" y="186" width="130" height="6" rx="3" fill="var(--gsp-navy-soft)"/>
+            <circle cx="160" cy="80" r="34" fill="var(--gsp-gold)"/>
+            <path d="M144 80l11 11 22-22" stroke="var(--gsp-white)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gsp-form-section" id="citizen-form">
+  <div class="container">
+    <div class="gsp-form-card">
+      <h2 class="gsp-section-title">Citizen Information Form</h2>
+      <p class="gsp-section-sub">All fields marked <span class="gsp-required">*</span> are required.</p>
+
+      <form id="scheme-form" action="{{ url_for('predict') }}" method="POST" novalidate>
+
+        <h5 class="gsp-form-group-title">1. Personal Information</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="full_name" class="form-label">Full Name <span class="gsp-required">*</span></label>
+            <input type="text" class="form-control" id="full_name" name="full_name" required>
+            <div class="invalid-feedback">Full Name is required.</div>
+          </div>
+          <div class="col-md-3">
+            <label for="age" class="form-label">Age <span class="gsp-required">*</span></label>
+            <input type="number" class="form-control" id="age" name="age" min="1" required>
+            <div class="invalid-feedback">Age must be greater than 0.</div>
+          </div>
+          <div class="col-md-3">
+            <label for="gender" class="form-label">Gender <span class="gsp-required">*</span></label>
+            <select class="form-select" id="gender" name="gender" required>
+              <option value="" selected disabled>Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+            <div class="invalid-feedback">Please select a gender.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="marital_status" class="form-label">Marital Status <span class="gsp-required">*</span></label>
+            <select class="form-select" id="marital_status" name="marital_status" required>
+              <option value="" selected disabled>Select</option>
+              <option>Single</option>
+              <option>Married</option>
+            </select>
+            <div class="invalid-feedback">Please select marital status.</div>
+          </div>
+          <div class="col-md-4">
+            <label for="district" class="form-label">District <span class="gsp-required">*</span></label>
+            <select class="form-select" id="district" name="district" required>
+              <option value="" selected disabled>Select</option>
+              <option>Dimapur</option>
+              <option>Kohima</option>
+              <option>Mokokchung</option>
+              <option>Mon</option>
+              <option>Phek</option>
+              <option>Wokha</option>
+            </select>
+            <div class="invalid-feedback">Please select a district.</div>
+          </div>
+          <div class="col-md-4">
+            <label for="annual_income" class="form-label">Annual Income (Rs.) <span class="gsp-required">*</span></label>
+            <input type="number" class="form-control" id="annual_income" name="annual_income" min="0" required>
+            <div class="invalid-feedback">Annual Income cannot be negative.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="occupation" class="form-label">Occupation <span class="gsp-required">*</span></label>
+            <select class="form-select" id="occupation" name="occupation" required>
+              <option value="" selected disabled>Select</option>
+              <option>Farmer</option>
+              <option>Business</option>
+              <option>Driver</option>
+              <option>Labour</option>
+              <option>Teacher</option>
+              <option>Vendor</option>
+              <option>Artisan</option>
+              <option>Homemaker</option>
+              <option>Student</option>
+            </select>
+            <div class="invalid-feedback">Please select an occupation.</div>
+          </div>
+        </div>
+
+        <h5 class="gsp-form-group-title gsp-mt">2. Eligibility Information</h5>
+        <div class="row g-3">
+          {% set eligibility_fields = [
+            ("is_farmer", "Farmer"),
+            ("is_student", "Student"),
+            ("has_disability", "Disability"),
+            ("is_bpl", "BPL Family"),
+            ("is_street_vendor", "Street Vendor"),
+            ("is_artisan", "Traditional Artisan"),
+            ("is_shg_member", "Woman SHG Member"),
+            ("is_rural", "Rural Household"),
+            ("has_girl_child", "Girl Child in Family"),
+          ] %}
+          {% for field_id, label in eligibility_fields %}
+          <div class="col-md-4">
+            <label for="{{ field_id }}" class="form-label">{{ label }}</label>
+            <select class="form-select" id="{{ field_id }}" name="{{ field_id }}">
+              <option value="No" selected>No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="gsp-form-actions">
+          <button type="submit" class="btn gsp-btn-primary btn-lg" id="submit-btn">
+            <span class="spinner-border spinner-border-sm d-none" id="submit-spinner" role="status" aria-hidden="true"></span>
+            <span id="submit-label">Predict Scheme</span>
+          </button>
+          <button type="reset" class="btn gsp-btn-secondary btn-lg" id="reset-btn">Reset Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
