@@ -6,6 +6,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const spinner = document.getElementById("submit-spinner");
   const label = document.getElementById("submit-label");
   const resetBtn = document.getElementById("reset-btn");
+  const ageField = document.getElementById("age");
+  const seniorCitizenField = document.getElementById("senior_citizen");
+  const maritalStatusField = document.getElementById("marital_status");
+  const pregnantFieldWrapper = document.getElementById("pregnant-field-wrapper");
+  const pregnantField = document.getElementById("pregnant");
+
+  function syncSeniorCitizen() {
+    if (!ageField || !seniorCitizenField) return;
+
+    const ageValue = Number(ageField.value);
+    if (!Number.isNaN(ageValue) && ageValue > 0) {
+      seniorCitizenField.value = ageValue >= 60 ? "Yes" : "No";
+    } else {
+      seniorCitizenField.value = "No";
+    }
+  }
+
+  function togglePregnantField() {
+    if (!pregnantFieldWrapper || !pregnantField || !maritalStatusField) return;
+
+    const isMarried = maritalStatusField.value === "Married";
+    if (isMarried) {
+      pregnantFieldWrapper.style.display = "block";
+      pregnantFieldWrapper.style.opacity = "1";
+      pregnantFieldWrapper.style.transform = "translateY(0)";
+    } else {
+      pregnantField.value = "No";
+      pregnantFieldWrapper.style.opacity = "0";
+      pregnantFieldWrapper.style.transform = "translateY(-4px)";
+      window.setTimeout(function () {
+        if (pregnantFieldWrapper.style.opacity === "0") {
+          pregnantFieldWrapper.style.display = "none";
+        }
+      }, 180);
+    }
+  }
 
   function validateField(field) {
     let valid = field.checkValidity();
@@ -50,6 +86,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  if (ageField) {
+    ageField.addEventListener("input", syncSeniorCitizen);
+    ageField.addEventListener("change", syncSeniorCitizen);
+  }
+
+  if (maritalStatusField) {
+    maritalStatusField.addEventListener("change", togglePregnantField);
+  }
+
+  syncSeniorCitizen();
+  togglePregnantField();
+
   resetBtn.addEventListener("click", function () {
     form.querySelectorAll(".is-invalid, .is-valid").forEach(function (field) {
       field.classList.remove("is-invalid", "is-valid");
@@ -57,5 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.disabled = false;
     spinner.classList.add("d-none");
     label.textContent = "Predict Scheme";
+    window.setTimeout(function () {
+      syncSeniorCitizen();
+      togglePregnantField();
+    }, 0);
   });
 });

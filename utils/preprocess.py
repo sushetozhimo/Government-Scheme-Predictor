@@ -1,19 +1,3 @@
-"""
-Shared preprocessing for the Government Scheme Predictor.
-
-This turns the raw form submission (a dict of strings, exactly what
-Flask's request.form gives you) into the exact numeric feature vector
-the Random Forest model was trained on.
-
-It does NOT need the 500MB training CSV at all -- it only needs the
-three small artifacts already produced by training:
-    - scheme_model.pkl      (the trained RandomForestClassifier)
-    - label_encoders.pkl    (dict: model_column_name -> fitted LabelEncoder)
-    - feature_columns.pkl   (list: exact column order the model expects)
-
-The model's training columns use different names than the HTML form's
-field names, so FIELD_MAP translates between the two.
-"""
 
 import pandas as pd
 
@@ -34,13 +18,32 @@ FIELD_MAP = {
     "Artisan": "is_artisan",
     "WomanSHG": "is_shg_member",
     "RuralHousehold": "is_rural",
+    "SeniorCitizen": "senior_citizen",
 }
 
 NUMERIC_MODEL_COLUMNS = {"Age", "Income"}
+YES_NO_FORM_FIELDS = {"senior_citizen"}
+YES_NO_MODEL_COLUMNS = {"SeniorCitizen"}
 
 # The label encoder key used for the target/label column (the predicted
 # scheme name), as opposed to a feature-column encoder.
 TARGET_KEY = "Scheme"
+
+
+def _coerce_yes_no_value(raw_value) -> int:
+    if isinstance(raw_value, bool):
+        return int(raw_value)
+    if raw_value is None:
+        return 0
+    if isinstance(raw_value, (int, float)):
+        return int(raw_value != 0)
+
+    text = str(raw_value).strip().lower()
+    if text in {"yes", "y", "true", "1", "1.0"}:
+        return 1
+    if text in {"no", "n", "false", "0", "0.0", ""}:
+        return 0
+    return 0
 
 
 def build_feature_frame(form_data: dict, label_encoders: dict, feature_columns: list) -> pd.DataFrame:
@@ -61,7 +64,10 @@ def build_feature_frame(form_data: dict, label_encoders: dict, feature_columns: 
 
         raw_value = form_data[form_field]
 
-        if model_col in NUMERIC_MODEL_COLUMNS:
+        if form_field in YES_NO_FORM_FIELDS or model_col in YES_NO_MODEL_COLUMNS:
+            row[model_col] = _coerce_yes_no_value(raw_value)
+
+        elif model_col in NUMERIC_MODEL_COLUMNS:
             try:
                 row[model_col] = float(raw_value)
             except (TypeError, ValueError):

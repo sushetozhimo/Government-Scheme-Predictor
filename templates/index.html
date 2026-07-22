@@ -10,9 +10,7 @@
         <p class="gsp-eyebrow">AI-Powered Citizen Scheme Predictor</p>
         <h1 class="gsp-hero-title">Government Scheme<br>Recommendation System</h1>
         <p class="gsp-hero-lead">
-          This AI-powered application recommends the most suitable government
-          scheme based on your personal and socio-economic details. Fill in
-          the form below to get a personalised recommendation in seconds.
+         Fill the form below to see the magic.
         </p>
         <a href="#citizen-form" class="btn gsp-btn-primary btn-lg">Check My Eligibility</a>
       </div>
@@ -71,21 +69,20 @@
               <option value="" selected disabled>Select</option>
               <option>Single</option>
               <option>Married</option>
+              <option>Widowed</option>
+              <option>Divorced</option>
             </select>
             <div class="invalid-feedback">Please select marital status.</div>
           </div>
           <div class="col-md-4">
-            <label for="district" class="form-label">District <span class="gsp-required">*</span></label>
-            <select class="form-select" id="district" name="district" required>
+            <label for="area_type" class="form-label">District / Area Type <span class="gsp-required">*</span></label>
+            <select class="form-select" id="area_type" name="area_type" required>
               <option value="" selected disabled>Select</option>
-              <option>Dimapur</option>
-              <option>Kohima</option>
-              <option>Mokokchung</option>
-              <option>Mon</option>
-              <option>Phek</option>
-              <option>Wokha</option>
+              <option>Urban</option>
+              <option>Rural</option>
+              <option>Semi Urban</option>
             </select>
-            <div class="invalid-feedback">Please select a district.</div>
+            <div class="invalid-feedback">Please select an area type.</div>
           </div>
           <div class="col-md-4">
             <label for="annual_income" class="form-label">Annual Income (Rs.) <span class="gsp-required">*</span></label>
@@ -97,15 +94,15 @@
             <label for="occupation" class="form-label">Occupation <span class="gsp-required">*</span></label>
             <select class="form-select" id="occupation" name="occupation" required>
               <option value="" selected disabled>Select</option>
+              <option>Unemployed</option>
               <option>Farmer</option>
-              <option>Business</option>
-              <option>Driver</option>
-              <option>Labour</option>
-              <option>Teacher</option>
-              <option>Vendor</option>
+              <option>Student</option>
+              <option>Self Employed</option>
+              <option>Salaried</option>
+              <option>Street Vendor</option>
               <option>Artisan</option>
               <option>Homemaker</option>
-              <option>Student</option>
+              <option>Retired</option>
             </select>
             <div class="invalid-feedback">Please select an occupation.</div>
           </div>
@@ -123,6 +120,7 @@
             ("is_shg_member", "Woman SHG Member"),
             ("is_rural", "Rural Household"),
             ("has_girl_child", "Girl Child in Family"),
+            ("senior_citizen", "Senior Citizen"),
           ] %}
           {% for field_id, label in eligibility_fields %}
           <div class="col-md-4">
@@ -133,6 +131,14 @@
             </select>
           </div>
           {% endfor %}
+
+          <div class="col-md-4" id="pregnant-field-wrapper" style="display: none; transition: all 0.2s ease;">
+            <label for="pregnant" class="form-label">Pregnant</label>
+            <select class="form-select" id="pregnant" name="pregnant">
+              <option value="No" selected>No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
         </div>
 
         <div class="gsp-form-actions">

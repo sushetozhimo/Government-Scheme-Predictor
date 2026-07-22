@@ -1,5 +1,7 @@
 import json
 import os
+import sys
+import importlib.util
 
 import joblib
 from flask import Flask, render_template, request
@@ -14,14 +16,19 @@ ENCODERS_PATH = os.path.join(BASE_DIR, "label_encoders.pkl")
 FEATURE_COLUMNS_PATH = os.path.join(BASE_DIR, "feature_columns.pkl")
 SCHEMES_PATH = os.path.join(BASE_DIR, "schemes.json")
 
-# ---------------------------------------------------------------------------
-# Load artifacts once at startup.
-#
-# IMPORTANT: none of this touches the 500MB training CSV. Only the small
-# .pkl files produced by your training script are needed here. If they are
-# missing/corrupt the app still runs, falling back to a transparent
-# rule-based match against schemes.json.
-# ---------------------------------------------------------------------------
+TRAINING_SCRIPT_PATH = r"C:\Users\User\OneDrive\Documents\Intership ML Classification\Random\scheme_model.py"
+_fake_module_name = os.path.splitext(TRAINING_SCRIPT_PATH)[0]
+
+if os.path.exists(TRAINING_SCRIPT_PATH) and _fake_module_name not in sys.modules:
+    try:
+        _spec = importlib.util.spec_from_file_location(_fake_module_name, TRAINING_SCRIPT_PATH)
+        _custom_module = importlib.util.module_from_spec(_spec)
+        sys.modules[_fake_module_name] = _custom_module
+        _spec.loader.exec_module(_custom_module)
+        print(f"[info] Registered training script as module '{_fake_module_name}' for unpickling")
+    except Exception as exc:
+        print(f"[warning] Could not pre-load training script for unpickling: {exc}")
+
 model = None
 label_encoders = {}
 feature_columns = []
@@ -31,14 +38,14 @@ try:
     model = joblib.load(MODEL_PATH)
     label_encoders = joblib.load(ENCODERS_PATH)
     feature_columns = joblib.load(FEATURE_COLUMNS_PATH)
-except Exception as exc:  # noqa: BLE001 - we want to degrade gracefully, not crash
+except Exception as exc:
     model_load_error = str(exc)
     print(f"[warning] Could not load model artifacts, using rule-based fallback: {exc}")
 
 try:
     with open(SCHEMES_PATH, "r", encoding="utf-8") as f:
         SCHEMES = json.load(f)
-except Exception as exc:  # noqa: BLE001
+except Exception as exc:
     print(f"[warning] Could not load schemes.json: {exc}")
     SCHEMES = []
 
@@ -83,10 +90,8 @@ def predict():
 
             used_model = True
         except ValueError as exc:
-            # Bad/unseen input value -- fall back to rule-based rather
-            # than showing the user a stack trace.
             print(f"[warning] Model prediction failed, using fallback: {exc}")
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"[error] Unexpected error during prediction: {exc}")
 
     if not used_model:

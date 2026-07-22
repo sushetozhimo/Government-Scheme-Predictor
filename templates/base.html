@@ -21,9 +21,9 @@
   <nav class="navbar navbar-expand-md gsp-navbar">
     <div class="container">
       <a class="navbar-brand gsp-brand" href="{{ url_for('index') }}">
-        <span class="gsp-brand-mark" aria-hidden="true">GS</span>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="gsp-brand-mark" width="40" height="40">
         <span class="gsp-brand-text">
-          Scheme<strong>Predictor</strong>
+          Government<strong>Schemes</strong>
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#gspNav" aria-controls="gspNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,13 +48,11 @@
       <div class="row gy-4">
         <div class="col-md-5">
           <div class="gsp-brand gsp-brand-footer">
-            <span class="gsp-brand-mark" aria-hidden="true">GS</span>
-            <span class="gsp-brand-text">Scheme<strong>Predictor</strong></span>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="gsp-brand-mark" width="40" height="40">
+            <span class="gsp-brand-text">Government<strong>Schemes</strong></span>
           </div>
           <p class="gsp-footer-text">
-            An AI-assisted tool to help citizens discover government welfare
-            schemes they may be eligible for. This is a demo project and not
-            an official government portal.
+           I makae this using flask and scikit-learn and RandomForest Classifier 
           </p>
         </div>
         <div class="col-md-3">
@@ -68,8 +66,7 @@
         <div class="col-md-4">
           <h6 class="gsp-footer-heading">Disclaimer</h6>
           <p class="gsp-footer-text">
-            Predictions are indicative only. Please verify eligibility on the
-            official scheme portal before applying.
+            All the Scheme is legit or not i dont have any idea our mentor just give us the data(It was 10 lakhs data by the way)
           </p>
         </div>
       </div>

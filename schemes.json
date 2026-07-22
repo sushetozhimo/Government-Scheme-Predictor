@@ -1,72 +1,128 @@
 [
   {
-    "name": "PM-KISAN",
+    "id": "pmkisan",
+    "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "description": "Income support of Rs. 6,000 per year for landholding farmer families.",
     "category": "Agriculture",
-    "description": "Income support of Rs. 6,000 per year to eligible farmer families, paid in three installments.",
-    "link": "https://pmkisan.gov.in/",
-    "criteria": { "is_farmer": "Yes" }
+    "criteria": {
+      "occupation": ["Farmer"],
+      "is_farmer": ["Yes"]
+    },
+    "link": "https://pmkisan.gov.in/"
   },
   {
-    "name": "PM SVANidhi",
-    "category": "Livelihood",
-    "description": "Collateral-free working capital loans for street vendors to restart or grow their business.",
-    "link": "https://pmsvanidhi.mohua.gov.in/",
-    "criteria": { "is_street_vendor": "Yes" }
+    "id": "pmavas",
+    "name": "Pradhan Mantri Awas Yojana (PMAY)",
+    "description": "Financial assistance for construction or purchase of a house for BPL and low-income families.",
+    "category": "Housing",
+    "criteria": {
+      "is_bpl": ["Yes"],
+      "max_income": 300000
+    },
+    "link": "https://pmaymis.gov.in/"
   },
   {
-    "name": "PM Vishwakarma",
-    "category": "Artisans & Craftspeople",
-    "description": "Financial support, skill training, and toolkits for traditional artisans and craftspeople.",
-    "link": "https://pmvishwakarma.gov.in/",
-    "criteria": { "is_artisan": "Yes" }
-  },
-  {
-    "name": "PM Mudra Yojana",
-    "category": "Employment & Enterprise",
-    "description": "Collateral-free loans up to Rs. 10 lakh for non-farm micro and small enterprises.",
-    "link": "https://www.mudra.org.in/",
-    "criteria": {}
-  },
-  {
-    "name": "PM Ujjwala Yojana",
-    "category": "Household Welfare",
-    "description": "Free LPG gas connections for women from below-poverty-line households.",
-    "link": "https://www.pmuy.gov.in/",
-    "criteria": { "is_bpl": "Yes" }
-  },
-  {
+    "id": "sukanya",
     "name": "Sukanya Samriddhi Yojana",
+    "description": "Small savings scheme for the welfare of a girl child in the family.",
     "category": "Girl Child Welfare",
-    "description": "Small savings scheme for the education and marriage expenses of a girl child.",
-    "link": "https://www.india.gov.in/spotlight/sukanya-samriddhi-yojana",
-    "criteria": { "has_girl_child": "Yes" }
+    "criteria": {
+      "has_girl_child": ["Yes"]
+    },
+    "link": "https://www.india.gov.in/spotlight/sukanya-samriddhi-yojana"
   },
   {
-    "name": "National Social Assistance Programme (NSAP)",
-    "category": "Social Assistance",
-    "description": "Pension and financial assistance for elderly, widowed, and disabled persons from poor households.",
-    "link": "https://nsap.nic.in/",
-    "criteria": { "has_disability": "Yes" }
+    "id": "nsap_disability",
+    "name": "Indira Gandhi National Disability Pension Scheme",
+    "description": "Monthly pension support for persons with disabilities from BPL households.",
+    "category": "Disability Welfare",
+    "criteria": {
+      "has_disability": ["Yes"],
+      "is_bpl": ["Yes"]
+    },
+    "link": "https://nsap.nic.in/"
   },
   {
-    "name": "Atal Pension Yojana",
-    "category": "Pension",
-    "description": "Guaranteed monthly pension scheme for workers in the unorganised sector after retirement.",
-    "link": "https://www.npscra.nsdl.co.in/scheme-details.php",
-    "criteria": {}
+    "id": "pmsvanidhi",
+    "name": "PM SVANidhi (Street Vendor Scheme)",
+    "description": "Collateral-free working capital loans for street vendors.",
+    "category": "Livelihood",
+    "criteria": {
+      "occupation": ["Street Vendor"],
+      "is_street_vendor": ["Yes"]
+    },
+    "link": "https://pmsvanidhi.mohua.gov.in/"
   },
   {
-    "name": "Jal Jeevan Mission",
-    "category": "Rural Infrastructure",
-    "description": "Provision of safe and adequate piped drinking water to every rural household.",
-    "link": "https://jaljeevanmission.gov.in/",
-    "criteria": { "is_rural": "Yes" }
+    "id": "pmvishwakarma",
+    "name": "PM Vishwakarma Yojana",
+    "description": "Support scheme for traditional artisans and craftspeople, including training and low-interest loans.",
+    "category": "Livelihood",
+    "criteria": {
+      "occupation": ["Artisan"],
+      "is_artisan": ["Yes"]
+    },
+    "link": "https://pmvishwakarma.gov.in/"
   },
   {
-    "name": "Samagra Shiksha",
+    "id": "dayntsly",
+    "name": "Deendayal Antyodaya Yojana - National Rural Livelihoods Mission (Woman SHG)",
+    "description": "Support for women's Self Help Groups (SHGs) to build sustainable livelihoods in rural areas.",
+    "category": "Women Empowerment",
+    "criteria": {
+      "is_shg_member": ["Yes"],
+      "gender": ["Female"]
+    },
+    "link": "https://aajeevika.gov.in/"
+  },
+  {
+    "id": "pmjay",
+    "name": "Ayushman Bharat - PM Jan Arogya Yojana (PMJAY)",
+    "description": "Health insurance cover of Rs. 5 lakh per family per year for BPL and low-income families.",
+    "category": "Health",
+    "criteria": {
+      "is_bpl": ["Yes"],
+      "max_income": 250000
+    },
+    "link": "https://pmjay.gov.in/"
+  },
+  {
+    "id": "nsp_scholarship",
+    "name": "National Scholarship Portal - Post Matric Scholarship",
+    "description": "Scholarship support for students from economically weaker sections to continue education.",
     "category": "Education",
-    "description": "Integrated scheme supporting school education from pre-school to senior secondary level.",
-    "link": "https://samagra.education.gov.in/",
-    "criteria": { "is_student": "Yes" }
+    "criteria": {
+      "occupation": ["Student"],
+      "max_income": 250000
+    },
+    "link": "https://scholarships.gov.in/"
+  },
+  {
+    "id": "rural_employment",
+    "name": "MGNREGA (Mahatma Gandhi National Rural Employment Guarantee Act)",
+    "description": "Guarantees 100 days of wage employment per year to rural households.",
+    "category": "Rural Employment",
+    "criteria": {
+      "is_rural": ["Yes"]
+    },
+    "link": "https://nrega.nic.in/"
+  },
+  {
+    "id": "widow_pension",
+    "name": "Indira Gandhi National Widow Pension Scheme",
+    "description": "Monthly pension for widows from BPL households.",
+    "category": "Social Security",
+    "criteria": {
+      "marital_status": ["Widowed"],
+      "is_bpl": ["Yes"]
+    },
+    "link": "https://nsap.nic.in/"
+  },
+  {
+    "id": "general_welfare",
+    "name": "State General Welfare Assistance",
+    "description": "General welfare and financial assistance for citizens who do not match a specific scheme category. Please visit your nearest Common Service Centre (CSC) for a detailed manual eligibility check.",
+    "category": "General",
+    "criteria": {}
   }
 ]
