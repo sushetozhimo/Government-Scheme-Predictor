@@ -67,6 +67,11 @@ def contact():
     return render_template("contact.html")
 
 
+@app.route("/gay-scheme")
+def gay_scheme():
+    return render_template("gay_scheme.html")
+
+
 @app.route("/predict", methods=["POST"])
 def predict():
     form_data = request.form.to_dict()
